@@ -52,16 +52,30 @@ function addStudent(){
     let student_info=readLineSync.question('请输入学生信息（格式：姓名, 学号, 民族, 班级, 学科: 成绩, ...），按回车提交：')
     let [name,id,nation,klass,...scores]=student_info.split(',');
     if(check_info(student_info)){
-        student_arr.push(new Student(name,id,nation,klass,scores));
-        console.log(`学生${name}的成绩被添加!`);
+        if(!check_same_id(id)){
+            student_arr.push(new Student(name,id,nation,klass,scores));
+            console.log(`学生${name}的成绩被添加!`);
+        }else{
+            console.log(`学生${name}，学号:${id}已经存在!`);
+        }
     }else{
         do{
             student_info=readLineSync.question('请按正确的格式输入（格式：姓名, 学号, 民族, 班级, 学科: 成绩, ...），按回车提交：')
         }while(!check_info(student_info));
         let [name,id,nation,klass,...scores]=student_info.split(',');
-        student_arr.push(new Student(name,id,nation,klass,scores));                
-        console.log(`学生${name}的成绩被添加!`);
+        if(!check_same_id(id)){
+            student_arr.push(new Student(name,id,nation,klass,scores));                
+            console.log(`学生${name}的成绩被添加!`);
+        }else{
+            console.log(`学生${name},学号:${id}已经存在！`);
+        }
     }
+}
+
+function check_same_id(id){
+    return student_arr.some((value,index,arr)=>{
+        return value.id===id;
+    });
 }
 
 function selectScores(){
