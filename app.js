@@ -81,16 +81,16 @@ function check_same_id(id){
 function selectScores(){
     let ids=readLineSync.question('请输入要打印的学生的学号（格式： 学号, 学号,...），直接回车表示所有学术信息，按回车提交：').split(',');
     if(check_id(ids)){
-        showScores(ids);
+        show_scores(ids);
     }else{
         do{
             ids=readLineSync.question('请按正确的格式输入要打印的学生的学号（格式： 学号, 学号,...），直接回车表示所有学术信息，按回车提交：').split(',');
         }while(!check_id(ids));
-        showScores(ids);
+        show_scores(ids);
     }
 }
 
-function showScores(ids){
+function show_scores(ids){
     let result=['成绩单','姓名|数学|语文|英语|编程|平均分|总分','========================'];
     student_arr.forEach((value,index,arr)=>{//这里遍历的是学生数组，所以就算ids里面有重复的也没事
         if(ids.includes('')||ids.includes(value.id)){
